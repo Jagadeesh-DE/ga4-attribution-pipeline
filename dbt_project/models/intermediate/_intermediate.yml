@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: int_touchpoints
+    description: One row per session that carries acquisition/channel info (from session_start events).
+    columns:
+      - name: touchpoint_ts
+        tests:
+          - not_null
+      - name: channel
+        description: "Human-readable '<source> / <medium>' label used throughout the marts and dashboard."
+        tests:
+          - not_null
+
+  - name: int_conversions
+    description: One row per purchase event.
+    columns:
+      - name: conversion_id
+        tests:
+          - unique
+          - not_null
+      - name: conversion_ts
+        tests:
+          - not_null
+      - name: purchase_revenue
+        tests:
+          - not_null

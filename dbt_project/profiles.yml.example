@@ -1,0 +1,23 @@
+# Copy this to ~/.dbt/profiles.yml and fill in YOUR OWN project.
+# Never commit a real profiles.yml with credentials to git.
+
+ga4_attribution:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth              # uses `gcloud auth application-default login`
+      project: your-gcp-project-id     # <-- YOUR billing project (queries land here)
+      dataset: ga4_attribution_dev
+      threads: 4
+      timeout_seconds: 300
+      location: US                # ga4_obfuscated_sample_ecommerce lives in US multi-region
+
+    prod:
+      type: bigquery
+      method: service-account
+      project: your-gcp-project-id
+      dataset: ga4_attribution
+      keyfile: /path/to/service-account.json   # keep out of git; use env var / secret manager
+      threads: 8
+      location: US

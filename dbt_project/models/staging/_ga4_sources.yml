@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: ga4_public
+    description: >
+      Public GA4 sample e-commerce export, sharded daily as events_YYYYMMDD.
+      Exact table: bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*
+    database: "{{ var('ga4_source_project') }}"
+    schema: "{{ var('ga4_source_dataset') }}"
+    tables:
+      - name: events_*
+        identifier: events_*
+        description: "Raw GA4 event export, one row per event, wildcard over daily shards."
+        loaded_at_field: event_timestamp
+        freshness:
+          warn_after: {count: 26, period: hour}
+          error_after: {count: 50, period: hour}
+
+      # Streaming table (see streaming/ demo) — a small append-only table
+      # simulating near-real-time GA4 events landing outside the daily batch export.
+      - name: events_streaming
+        identifier: events_streaming
+        description: "Append-only table fed by streaming/stream_events.py to demo near-real-time materialization."

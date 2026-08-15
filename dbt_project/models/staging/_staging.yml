@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_events
+    description: >
+      One row per GA4 event, flattened from event_params, unioned across
+      the daily batch export and the streaming demo table.
+    columns:
+      - name: event_timestamp
+        description: Microseconds since epoch, as exported by GA4.
+        tests:
+          - not_null
+      - name: event_name
+        description: GA4 event name (session_start, page_view, purchase, etc.)
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['session_start','page_view','view_item','add_to_cart','begin_checkout','purchase']
+      - name: user_pseudo_id
+        description: Device-scoped anonymous identifier. See docs/assumptions.md for identity-resolution caveats.
+        tests:
+          - not_null
+      - name: purchase_revenue
+        description: Populated only on 'purchase' events; null otherwise.

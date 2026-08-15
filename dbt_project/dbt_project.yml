@@ -1,0 +1,30 @@
+name: 'ga4_attribution'
+version: '1.0.0'
+config-version: 2
+
+profile: 'ga4_attribution'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  ga4_attribution:
+    staging:
+      +materialized: view
+      +schema: staging
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+    marts:
+      +materialized: table
+      +schema: marts
+
+vars:
+  # ASSUMPTION: 30-day lookback window for attribution eligibility.
+  # See docs/assumptions.md for rationale and alternatives considered.
+  lookback_days: 30
+  # Real public dataset. Change project/dataset here to point at a
+  # different GA4 export without touching model SQL.
+  ga4_source_project: 'bigquery-public-data'
+  ga4_source_dataset: 'ga4_obfuscated_sample_ecommerce'
