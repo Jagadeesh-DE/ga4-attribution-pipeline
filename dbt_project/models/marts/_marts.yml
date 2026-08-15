@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: mart_attribution_first_click
+    description: "One row per conversion, credited to the earliest eligible touchpoint (see docs/assumptions.md for lookback window and tie-breaker rules)."
+    columns:
+      - name: conversion_id
+        tests:
+          - unique
+          - not_null
+      - name: attributed_channel
+        tests:
+          - not_null
+      - name: purchase_revenue
+        tests:
+          - not_null
+
+  - name: mart_attribution_last_click
+    description: "One row per conversion, credited to the latest eligible touchpoint at or before conversion."
+    columns:
+      - name: conversion_id
+        tests:
+          - unique
+          - not_null
+      - name: attributed_channel
+        tests:
+          - not_null
+      - name: purchase_revenue
+        tests:
+          - not_null
+
+  - name: mart_channel_daily
+    description: "Daily conversions/revenue by channel, for both attribution models. Feeds the dashboard directly."
+    columns:
+      - name: attribution_model
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['first_click', 'last_click']
+      - name: conversion_date
+        tests:
+          - not_null
+      - name: conversions
+        tests:
+          - not_null
