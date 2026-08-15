@@ -1,0 +1,19 @@
+# dbt
+target/
+dbt_packages/
+logs/
+
+# credentials - NEVER commit these
+profiles.yml
+*.json
+!dashboard/data.json
+service-account*.json
+
+# local generated data
+local_demo/attribution.db
+local_demo/events.csv
+
+# python
+__pycache__/
+*.pyc
+.venv/
