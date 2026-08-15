@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Attribution Monitor — First-Click vs Last-Click</title>
+<style>
+  :root {
+    --bg: #10131a;
+    --panel: #171b24;
+    --panel-border: #262b38;
+    --text: #edebe3;
+    --muted: #8b92a6;
+    --first: #e8a33d;   /* first-click accent: amber */
+    --last: #35b0a7;    /* last-click accent: teal */
+    --live: #4ade80;    /* streaming pulse */
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--sans); padding: 28px 32px 60px;
+  }
+  header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px; flex-wrap: wrap; gap: 10px; }
+  h1 { font-size: 19px; font-weight: 650; letter-spacing: 0.2px; margin: 0; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; }
+  .meta { font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 14px; }
+  .pulse-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--live); display: inline-block; box-shadow: 0 0 0 0 rgba(74,222,128,0.6); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(74,222,128,0.5);} 70% { box-shadow: 0 0 0 7px rgba(74,222,128,0);} 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0);} }
+  .refresh-btn { font-family: var(--mono); font-size: 11px; color: var(--text); background: var(--panel); border: 1px solid var(--panel-border); padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+  .refresh-btn:hover { border-color: var(--muted); }
+
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 8px; padding: 16px 18px; }
+  .kpi-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  .kpi-first .kpi-label { color: var(--first); }
+  .kpi-last .kpi-label { color: var(--last); }
+  .kpi-value { font-family: var(--mono); font-size: 30px; font-weight: 600; margin-top: 6px; }
+  .kpi-sub { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  .row-2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; margin-top: 14px; }
+  .card h2 { font-size: 13px; margin: 0 0 12px; font-weight: 600; }
+  .card .caption { font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin: -8px 0 12px; }
+
+  .legend { display: flex; gap: 16px; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .legend span::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; position: relative; top: 1px; }
+  .legend .lf::before { background: var(--first); }
+  .legend .ll::before { background: var(--last); }
+
+  .channel-row { display: grid; grid-template-columns: 130px 1fr 60px; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11.5px; margin-bottom: 9px; }
+  .channel-name { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-pair { display: flex; flex-direction: column; gap: 3px; }
+  .bar-track { background: #0c0e13; border-radius: 3px; height: 8px; position: relative; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-fill.first { background: var(--first); }
+  .bar-fill.last { background: var(--last); }
+  .channel-revenue { color: var(--muted); text-align: right; }
+
+  #live-list { max-height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 7px; }
+  .live-item { font-family: var(--mono); font-size: 11.5px; background: #0c0e13; border-radius: 5px; padding: 7px 9px; display: flex; justify-content: space-between; gap: 8px; border-left: 2px solid var(--live); }
+  .live-item .ev-name { color: var(--live); }
+  .live-item .ev-meta { color: var(--muted); }
+  .empty-state { font-family: var(--mono); font-size: 11.5px; color: var(--muted); padding: 20px 4px; }
+
+  svg text { font-family: var(--mono); }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">GA4 Attribution — Near-Real-Time</div>
+    <h1>Attribution Monitor</h1>
+  </div>
+  <div class="meta">
+    <span><span class="pulse-dot"></span> live</span>
+    <span id="last-updated">loading…</span>
+    <button class="refresh-btn" onclick="loadData()">↻ refresh</button>
+  </div>
+</header>
+
+<div class="kpi-row">
+  <div class="card kpi-first">
+    <div class="kpi-label">First-Click Model</div>
+    <div class="kpi-value" id="fc-revenue">—</div>
+    <div class="kpi-sub" id="fc-conversions">—</div>
+  </div>
+  <div class="card kpi-last">
+    <div class="kpi-label">Last-Click Model</div>
+    <div class="kpi-value" id="lc-revenue">—</div>
+    <div class="kpi-sub" id="lc-conversions">—</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>14-Day Conversion Trend</h2>
+  <div class="caption">Daily conversions credited under each model — same underlying purchases, different attribution</div>
+  <div class="legend"><span class="lf">first-click</span><span class="ll">last-click</span></div>
+  <svg id="timeseries" viewBox="0 0 900 220" style="width:100%; height:220px;"></svg>
+</div>
+
+<div class="row-2">
+  <div class="card">
+    <h2>Channel Breakdown — where the two models disagree</h2>
+    <div class="caption">Paired bars, same channel: amber = first-click revenue, teal = last-click revenue</div>
+    <div id="channel-bars"></div>
+  </div>
+  <div class="card">
+    <h2>Live Stream Panel</h2>
+    <div class="caption">Most recent events landed via streaming/ — auto-refreshes every 5s</div>
+    <div id="live-list"><div class="empty-state">No streamed events yet. Run streaming/stream_events_local_demo.py.</div></div>
+  </div>
+</div>
+
+<script>
+let cachedData = null;
+
+async function loadData() {
+  try {
+    const res = await fetch('./data.json?_=' + Date.now());
+    const data = await res.json();
+    cachedData = data;
+    render(data);
+  } catch (e) {
+    document.getElementById('last-updated').textContent = 'fetch failed — serve via `python3 -m http.server`';
+  }
+}
+
+function render(data) {
+  document.getElementById('last-updated').textContent = 'generated ' + new Date(data.generated_at).toLocaleTimeString();
+
+  const fc = data.totals.first_click || {revenue: 0, conversions: 0};
+  const lc = data.totals.last_click || {revenue: 0, conversions: 0};
+  document.getElementById('fc-revenue').textContent = '$' + fc.revenue.toLocaleString();
+  document.getElementById('fc-conversions').textContent = fc.conversions + ' conversions';
+  document.getElementById('lc-revenue').textContent = '$' + lc.revenue.toLocaleString();
+  document.getElementById('lc-conversions').textContent = lc.conversions + ' conversions';
+
+  renderTimeseries(data.channel_daily);
+  renderChannelBars(data.channel_breakdown);
+  renderLivePanel(data.live_events);
+}
+
+function renderTimeseries(channelDaily) {
+  const byDateModel = {};
+  channelDaily.forEach(r => {
+    const key = r.conversion_date + '|' + r.attribution_model;
+    byDateModel[key] = (byDateModel[key] || 0) + r.conversions;
+  });
+  const dates = [...new Set(channelDaily.map(r => r.conversion_date))].sort().slice(-14);
+  const fcSeries = dates.map(d => byDateModel[d + '|first_click'] || 0);
+  const lcSeries = dates.map(d => byDateModel[d + '|last_click'] || 0);
+  const maxVal = Math.max(1, ...fcSeries, ...lcSeries);
+
+  const W = 900, H = 220, padL = 30, padB = 26, padT = 10, padR = 10;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const x = i => padL + (i / Math.max(1, dates.length - 1)) * plotW;
+  const y = v => padT + plotH - (v / maxVal) * plotH;
+
+  const line = series => series.map((v, i) => (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ',' + y(v).toFixed(1)).join(' ');
+
+  let svg = '';
+  // gridlines
+  for (let g = 0; g <= 4; g++) {
+    const gy = padT + (plotH / 4) * g;
+    svg += `<line x1="${padL}" y1="${gy}" x2="${W-padR}" y2="${gy}" stroke="#262b38" stroke-width="1"/>`;
+  }
+  svg += `<path d="${line(fcSeries)}" fill="none" stroke="var(--first)" stroke-width="2"/>`;
+  svg += `<path d="${line(lcSeries)}" fill="none" stroke="var(--last)" stroke-width="2"/>`;
+  fcSeries.forEach((v,i)=> svg += `<circle cx="${x(i)}" cy="${y(v)}" r="2.5" fill="#e8a33d"/>`);
+  lcSeries.forEach((v,i)=> svg += `<circle cx="${x(i)}" cy="${y(v)}" r="2.5" fill="#35b0a7"/>`);
+  // x labels (every ~3rd date)
+  dates.forEach((d,i) => {
+    if (i % 3 === 0 || i === dates.length-1) {
+      const label = d.slice(4,6)+'/'+d.slice(6,8);
+      svg += `<text x="${x(i)}" y="${H-6}" font-size="9.5" fill="#8b92a6" text-anchor="middle">${label}</text>`;
+    }
+  });
+  document.getElementById('timeseries').innerHTML = svg;
+}
+
+function renderChannelBars(breakdown) {
+  const fc = {}; (breakdown.first_click||[]).forEach(r => fc[r.attributed_channel] = r);
+  const lc = {}; (breakdown.last_click||[]).forEach(r => lc[r.attributed_channel] = r);
+  const channels = [...new Set([...Object.keys(fc), ...Object.keys(lc)])];
+  const maxRev = Math.max(1, ...channels.map(c => Math.max(fc[c]?.revenue||0, lc[c]?.revenue||0)));
+
+  let html = '';
+  channels.sort((a,b) => (lc[b]?.revenue||0) - (lc[a]?.revenue||0));
+  channels.forEach(c => {
+    const fRev = fc[c]?.revenue || 0, lRev = lc[c]?.revenue || 0;
+    html += `
+      <div class="channel-row">
+        <div class="channel-name" title="${c}">${c}</div>
+        <div class="bar-pair">
+          <div class="bar-track"><div class="bar-fill first" style="width:${(fRev/maxRev*100).toFixed(1)}%"></div></div>
+          <div class="bar-track"><div class="bar-fill last" style="width:${(lRev/maxRev*100).toFixed(1)}%"></div></div>
+        </div>
+        <div class="channel-revenue">$${lRev.toLocaleString()}</div>
+      </div>`;
+  });
+  document.getElementById('channel-bars').innerHTML = html || '<div class="empty-state">No conversions yet.</div>';
+}
+
+function renderLivePanel(events) {
+  const el = document.getElementById('live-list');
+  if (!events || events.length === 0) {
+    el.innerHTML = '<div class="empty-state">No streamed events yet. Run streaming/stream_events_local_demo.py.</div>';
+    return;
+  }
+  el.innerHTML = events.map(e => `
+    <div class="live-item">
+      <span><span class="ev-name">${e.event_name}</span> <span class="ev-meta">${e.user_pseudo_id}</span></span>
+      <span class="ev-meta">${e.source}/${e.medium}${e.purchase_revenue ? ' · $'+e.purchase_revenue : ''}</span>
+    </div>`).join('');
+}
+
+loadData();
+setInterval(loadData, 5000); // near-real-time: re-pull data.json every 5s
+</script>
+</body>
+</html>

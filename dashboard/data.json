@@ -1,0 +1,457 @@
+{
+  "generated_at": "2026-08-15T12:00:07.893621",
+  "totals": {
+    "first_click": {
+      "conversions": 24,
+      "revenue": 2876.62
+    },
+    "last_click": {
+      "conversions": 24,
+      "revenue": 2876.62
+    }
+  },
+  "channel_daily": [
+    {
+      "model": "first_click",
+      "conversion_date": "20260722",
+      "attributed_channel": "google / organic",
+      "conversions": 1,
+      "revenue": 129.4
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260722",
+      "attributed_channel": "google / organic",
+      "conversions": 1,
+      "revenue": 129.4
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260728",
+      "attributed_channel": "google / cpc",
+      "conversions": 1,
+      "revenue": 34.21
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260728",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 1,
+      "revenue": 219.2
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260728",
+      "attributed_channel": "google / cpc",
+      "conversions": 1,
+      "revenue": 34.21
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260728",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 1,
+      "revenue": 219.2
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260729",
+      "attributed_channel": "google / organic",
+      "conversions": 1,
+      "revenue": 64.78
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260729",
+      "attributed_channel": "newsletter / email",
+      "conversions": 1,
+      "revenue": 193.03
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260729",
+      "attributed_channel": "google / organic",
+      "conversions": 1,
+      "revenue": 64.78
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260729",
+      "attributed_channel": "newsletter / email",
+      "conversions": 1,
+      "revenue": 193.03
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260730",
+      "attributed_channel": "google / cpc",
+      "conversions": 1,
+      "revenue": 171.31
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260730",
+      "attributed_channel": "newsletter / email",
+      "conversions": 1,
+      "revenue": 169.46
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260730",
+      "attributed_channel": "facebook / social",
+      "conversions": 1,
+      "revenue": 169.46
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260730",
+      "attributed_channel": "google / organic",
+      "conversions": 1,
+      "revenue": 171.31
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260801",
+      "attributed_channel": "(direct) / (none)",
+      "conversions": 1,
+      "revenue": 216.97
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260801",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 1,
+      "revenue": 29.64
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260801",
+      "attributed_channel": "(direct) / (none)",
+      "conversions": 1,
+      "revenue": 216.97
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260801",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 1,
+      "revenue": 29.64
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260802",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 1,
+      "revenue": 71.29
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260802",
+      "attributed_channel": "(direct) / (none)",
+      "conversions": 1,
+      "revenue": 71.29
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260803",
+      "attributed_channel": "facebook / social",
+      "conversions": 1,
+      "revenue": 25.68
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260803",
+      "attributed_channel": "google / cpc",
+      "conversions": 1,
+      "revenue": 213.21
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260803",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 1,
+      "revenue": 69.3
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260803",
+      "attributed_channel": "facebook / social",
+      "conversions": 1,
+      "revenue": 25.68
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260803",
+      "attributed_channel": "google / cpc",
+      "conversions": 1,
+      "revenue": 213.21
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260803",
+      "attributed_channel": "newsletter / email",
+      "conversions": 1,
+      "revenue": 69.3
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260804",
+      "attributed_channel": "(direct) / (none)",
+      "conversions": 1,
+      "revenue": 205.43
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260804",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 1,
+      "revenue": 96.93
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260804",
+      "attributed_channel": "facebook / social",
+      "conversions": 1,
+      "revenue": 96.93
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260804",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 1,
+      "revenue": 205.43
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260805",
+      "attributed_channel": "(direct) / (none)",
+      "conversions": 1,
+      "revenue": 167.2
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260805",
+      "attributed_channel": "google / organic",
+      "conversions": 1,
+      "revenue": 167.2
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260806",
+      "attributed_channel": "facebook / social",
+      "conversions": 1,
+      "revenue": 68.33
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260806",
+      "attributed_channel": "newsletter / email",
+      "conversions": 2,
+      "revenue": 172.74
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260806",
+      "attributed_channel": "facebook / social",
+      "conversions": 1,
+      "revenue": 69.37
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260806",
+      "attributed_channel": "newsletter / email",
+      "conversions": 2,
+      "revenue": 171.7
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260808",
+      "attributed_channel": "facebook / social",
+      "conversions": 1,
+      "revenue": 98.75
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260808",
+      "attributed_channel": "google / cpc",
+      "conversions": 1,
+      "revenue": 49.4
+    },
+    {
+      "model": "first_click",
+      "conversion_date": "20260808",
+      "attributed_channel": "partner-blog.com / referral",
+      "conversions": 3,
+      "revenue": 410.36
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260808",
+      "attributed_channel": "(direct) / (none)",
+      "conversions": 3,
+      "revenue": 344.51
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260808",
+      "attributed_channel": "google / cpc",
+      "conversions": 1,
+      "revenue": 49.4
+    },
+    {
+      "model": "last_click",
+      "conversion_date": "20260808",
+      "attributed_channel": "google / organic",
+      "conversions": 1,
+      "revenue": 164.6
+    }
+  ],
+  "channel_breakdown": {
+    "first_click": [
+      {
+        "attributed_channel": "partner-blog.com / referral",
+        "conversions": 8,
+        "revenue": 896.72
+      },
+      {
+        "attributed_channel": "(direct) / (none)",
+        "conversions": 3,
+        "revenue": 589.6
+      },
+      {
+        "attributed_channel": "newsletter / email",
+        "conversions": 4,
+        "revenue": 535.23
+      },
+      {
+        "attributed_channel": "google / cpc",
+        "conversions": 4,
+        "revenue": 468.13
+      },
+      {
+        "attributed_channel": "google / organic",
+        "conversions": 2,
+        "revenue": 194.18
+      },
+      {
+        "attributed_channel": "facebook / social",
+        "conversions": 3,
+        "revenue": 192.76
+      }
+    ],
+    "last_click": [
+      {
+        "attributed_channel": "google / organic",
+        "conversions": 5,
+        "revenue": 697.29
+      },
+      {
+        "attributed_channel": "(direct) / (none)",
+        "conversions": 5,
+        "revenue": 632.77
+      },
+      {
+        "attributed_channel": "partner-blog.com / referral",
+        "conversions": 3,
+        "revenue": 454.27
+      },
+      {
+        "attributed_channel": "newsletter / email",
+        "conversions": 4,
+        "revenue": 434.03
+      },
+      {
+        "attributed_channel": "facebook / social",
+        "conversions": 4,
+        "revenue": 361.44
+      },
+      {
+        "attributed_channel": "google / cpc",
+        "conversions": 3,
+        "revenue": 296.82
+      }
+    ]
+  },
+  "live_events": [
+    {
+      "event_name": "session_start",
+      "user_pseudo_id": "live_user_05.4945",
+      "source": "facebook",
+      "medium": "social",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865973+00:00"
+    },
+    {
+      "event_name": "page_view",
+      "user_pseudo_id": "live_user_03.3140",
+      "source": "(direct)",
+      "medium": "(none)",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865940+00:00"
+    },
+    {
+      "event_name": "page_view",
+      "user_pseudo_id": "live_user_01.8568",
+      "source": "google",
+      "medium": "organic",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865932+00:00"
+    },
+    {
+      "event_name": "add_to_cart",
+      "user_pseudo_id": "live_user_06.7103",
+      "source": "facebook",
+      "medium": "social",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865925+00:00"
+    },
+    {
+      "event_name": "session_start",
+      "user_pseudo_id": "live_user_04.8199",
+      "source": "facebook",
+      "medium": "social",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865915+00:00"
+    },
+    {
+      "event_name": "add_to_cart",
+      "user_pseudo_id": "live_user_05.8347",
+      "source": "facebook",
+      "medium": "social",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865902+00:00"
+    },
+    {
+      "event_name": "session_start",
+      "user_pseudo_id": "live_user_02.9220",
+      "source": "(direct)",
+      "medium": "(none)",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865892+00:00"
+    },
+    {
+      "event_name": "session_start",
+      "user_pseudo_id": "live_user_03.8146",
+      "source": "facebook",
+      "medium": "social",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865876+00:00"
+    },
+    {
+      "event_name": "view_item",
+      "user_pseudo_id": "live_user_04.8789",
+      "source": "google",
+      "medium": "organic",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865848+00:00"
+    },
+    {
+      "event_name": "page_view",
+      "user_pseudo_id": "live_user_04.1643",
+      "source": "google",
+      "medium": "cpc",
+      "purchase_revenue": null,
+      "ingested_at": "2026-08-15T12:00:07.865653+00:00"
+    }
+  ]
+}
